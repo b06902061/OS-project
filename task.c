@@ -20,10 +20,8 @@ void yield_to_parent(){
 }
 
 int main(int argc, char **argv){
-	struct timeval start, end;
-	struct timezone aa;
-	//syscall(334, &start.s, &start.ns);
-	gettimeofday(&start, &aa);
+	TIME start, end;
+	syscall(334, &start.s, &start.ns);
 	
 	high_p.sched_priority = sched_get_priority_max(SCHED_FIFO);
 	low_p.sched_priority = sched_get_priority_max(SCHED_FIFO) - 1;
@@ -38,16 +36,13 @@ int main(int argc, char **argv){
 			puts("read error.");
 		}
 		time -= exe;
-		printf("%d %s get %d rem %d\n", getpid(), argv[1], exe, time);
 		timer(exe);
 	}while(time > 0);
 	close(fifofd);
-	//syscall(334, &end.s, &end.ns);
-	gettimeofday(&end, &aa);
+	syscall(334, &end.s, &end.ns);
 	char s[300];
-	sprintf(s, "[Project 1] %d %lu.%09lu\t%lu.%09lu", getpid(), start.tv_sec, start.tv_usec, end.tv_sec, end.tv_usec);
-	printf("%s\n", s);
-	//syscall(333, s);
+	sprintf(s, "[Project1] %d %lu.%09lu\t%lu.%09lu\n", getpid(), start.s, start.ns, end.s, end.ns);
+	syscall(333, s);
 	if(sched_setscheduler(getppid(), SCHED_FIFO, &high_p) < 0) puts("child set error.");
 	exit(0);
 }

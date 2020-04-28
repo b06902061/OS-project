@@ -67,7 +67,6 @@ void RUNSCHEDULER(TASK *task, SEQ *seq, int taskn, int seqn){
 	int time = 0;
 	for(int i = 0; i < seqn; i++){
 		if(time < seq[i].start){
-			printf("parent %d\n", seq[i].start - time);
 			timer(seq[i].start - time);
 			time = seq[i].start;
 		}
@@ -83,6 +82,5 @@ void RUNSCHEDULER(TASK *task, SEQ *seq, int taskn, int seqn){
 	close(fifofd);
 	for(int i = 0; i < taskn; i++){
 		waitpid(child[i], NULL, 0);
-		printf("clear %s\n", task[i].name);
 	}
 }
