@@ -45,7 +45,7 @@ int main(int argc, char **argv){
 	//syscall(334, &end.s, &end.ns);
 	gettimeofday(&end, &aa);
 	char s[300];
-	sprintf(s, "[Project 1] %d %lu.%08lu\t%lu.%08lu", getpid(), start.tv_sec, start.tv_usec, end.tv_sec, end.tv_usec);
+	sprintf(s, "[Project 1] %d %lu.%09lu\t%lu.%09lu", getpid(), start.tv_sec, start.tv_usec, end.tv_sec, end.tv_usec);
 	printf("%s\n", s);
 	//syscall(333, s);
 	if(sched_setscheduler(getppid(), SCHED_FIFO, &high_p) < 0) puts("child set error.");
