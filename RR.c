@@ -55,8 +55,5 @@ void RR(TASK *task, TASK *tmptask, int n){
 	qsort(tmptask, n, sizeof(TASK), cmpRR);
 	SEQ seq[MAXSEQ];
 	int seqcnt = getRRseq(tmptask, seq, n);
-	for(int i = 0; i < seqcnt; i++){
-		printf("%d %d %d\n", seq[i].taskid, seq[i].start, seq[i].exe);
-	}
 	RUNSCHEDULER(task, seq, n, seqcnt);	
 }

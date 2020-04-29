@@ -20,6 +20,8 @@ void yield_to_parent(){
 }
 
 int main(int argc, char **argv){
+	printf("%s %d\n", argv[1], getpid());
+	fflush(stdout);
 	TIME start, end;
 	syscall(334, &start.s, &start.ns);
 	
